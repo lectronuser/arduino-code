@@ -1,5 +1,5 @@
-#ifndef __IST8310_REGISTER_HPP__
-#define __IST8310_REGISTER_HPP__
+#ifndef __IST8310_TYPES_HPP__
+#define __IST8310_TYPES_HPP__
 
 #include <Wire.h>
 #include <Arduino.h>

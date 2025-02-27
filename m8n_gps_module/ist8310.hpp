@@ -1,7 +1,7 @@
 #ifndef __IST8310_HPP__
 #define __IST8310_HPP__
 
-#include "ist8310_registers.hpp"
+#include "ist8310_types.hpp"
 
 using namespace iSentek_IST8310;
 
