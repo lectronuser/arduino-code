@@ -25,6 +25,17 @@ struct GpsData
     GpsDate date;
 };
 
+
+/*
+Fix Age (ms): 0
+Latitude: 40.065063
+Longitude: 32.917808
+Altitude (m): 947.80
+HDOP: 9.65
+Course (degrees): 269.28
+Satellites: 7
+*/
+
 struct GpsReady
 {
     GpsReady() : location(false), sats(false), date(false),
@@ -53,12 +64,12 @@ public:
     void update();
     bool getIsReady() { return is_ready.allTrue(); }
     void display() const;
+    GpsData data;
 
 private:
     TinyGPSPlus gps;
     unsigned long last = 0UL;
     uint32_t fix_age;
-    GpsData data;
     GpsReady is_ready;
 };
 

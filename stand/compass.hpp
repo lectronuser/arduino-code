@@ -10,7 +10,7 @@ class Compass
 {
 public:
     Compass(TwoWire &wire = Wire, uint8_t address = IST8310_ADDR);
-    bool begin();
+    void begin();
     uint8_t whoAmI();
     bool readMagnetometer(int16_t &mx, int16_t &my, int16_t &mz);
     bool readTemperature(int16_t &temp);
@@ -22,6 +22,7 @@ public:
     void setResolution(uint8_t xRes, uint8_t yRes, uint8_t zRes);
     void enableContinuousMeasurementMode();
     int getYawAngle();
+    bool getIsReady() const { return is_ready; }
 
 private:
     void writeRegister(uint8_t reg, uint8_t value);
@@ -31,6 +32,7 @@ private:
 private:
     TwoWire &_wire;
     uint8_t _address;
+    bool is_ready = false;
 };
 
 #endif

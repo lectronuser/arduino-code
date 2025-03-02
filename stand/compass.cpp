@@ -5,11 +5,11 @@ Compass::Compass(TwoWire &wire, uint8_t address) : _wire(wire),
 {
 }
 
-bool Compass::begin()
+void Compass::begin()
 {
     _wire.begin();
     _wire.setClock(I2C_SPEED);
-    return whoAmI() == Device_ID;
+    is_ready = (whoAmI() == Device_ID);
 }
 
 uint8_t Compass::whoAmI()
