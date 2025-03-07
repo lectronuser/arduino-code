@@ -7,7 +7,7 @@
 
 #define SYS_ID (1)
 #define COMPONENT_ID (200)
-#define TEST
+// #define TEST
 
 Compass compass;
 RGB_IS31fl3195 rgb;
@@ -84,8 +84,8 @@ void sendMAVLinkMessage(float yaw)
 
 #ifdef TEST
     m10.position.fix_age_ms = 1;
-    m10.position.latitude = 40.065063;
-    m10.position.longitude = 32.917808;
+    m10.position.latitude = 40.0738894;
+    m10.position.longitude = 33.0015557;
     m10.position.altitude_m = 947.80;
     m10.position.course_deg = 269.28;
     m10.position.hdop = 1.67; 
