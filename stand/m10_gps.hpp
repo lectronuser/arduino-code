@@ -1,9 +1,9 @@
-#ifndef __M10_GPS__
-#define __M10_GPS__
+#ifndef M10_GPS_HPP
+#define M10_GPS_HPP
 
 #include <TinyGPSPlus.h>
 
-struct GpsDate
+struct GpsTimestamp
 {
     uint16_t year;
     uint8_t month;
@@ -13,46 +13,40 @@ struct GpsDate
     uint8_t second;
 };
 
-struct GpsData
+struct GpsPosition
 {
-    uint32_t fix_age; // ms
-    double longitude;
-    double latitude;
-    double altitude; // meters
-    double hdop;
-    uint16_t course;
-    int32_t satellites;
-    GpsDate date;
+    uint16_t fix_age_ms;  // Fix bilgisinin yaşı (ms cinsinden)
+    double longitude;     // Boylam (derece)
+    double latitude;      // Enlem (derece)
+    double altitude_m;    // Yükseklik (metre)
+    double hdop;          // Yatay doğruluk değeri (HDOP)
+    float course_deg;  // Yön (derece cinsinden)
+    int16_t satellite_count; // Bağlı uydu sayısı
 };
 
-
-/*
-Fix Age (ms): 0
-Latitude: 40.065063
-Longitude: 32.917808
-Altitude (m): 947.80
-HDOP: 9.65
-Course (degrees): 269.28
-Satellites: 7
-*/
-
-struct GpsReady
+struct GpsPositionStatus
 {
-    GpsReady() : location(false), sats(false), date(false),
-                 time(false), altitude(false), htop(false),
-                 course(false) {}
+    GpsPositionStatus() : location(false), altitude(false) {}
+
     bool location;
     bool altitude;
-    bool course;
-    bool sats;
-    bool htop;
+
+    bool isReady() const
+    {
+        return location && altitude;
+    }
+};
+
+struct GpsTimestampStatus
+{
+    GpsTimestampStatus() : date(false), time(false) {}
+
     bool date;
     bool time;
 
-    bool allTrue() const
+    bool isReady() const
     {
-        bool is_ready = location && altitude && sats && date && time && course && htop;
-        return is_ready;
+        return date && time;
     }
 };
 
@@ -62,15 +56,17 @@ public:
     GPS() = default;
     void load(char c);
     void update();
-    bool getIsReady() { return is_ready.allTrue(); }
+    bool getIsReady() const { return position_status.isReady(); }
     void display() const;
-    GpsData data;
+    GpsPosition position;
+    GpsTimestamp timestamp;
 
 private:
     TinyGPSPlus gps;
     unsigned long last = 0UL;
     uint32_t fix_age;
-    GpsReady is_ready;
+    GpsPositionStatus position_status;
+    GpsTimestampStatus timestamp_status;
 };
 
 #endif

@@ -1,5 +1,5 @@
-#ifndef _COMPASS_HPP__
-#define _COMPASS_HPP__
+#ifndef COMPASS_HPP
+#define COMPASS_HPP
 
 #include "stand_type.hpp"
 
@@ -21,7 +21,7 @@ public:
     void setOutputDataRate(uint8_t odr);
     void setResolution(uint8_t xRes, uint8_t yRes, uint8_t zRes);
     void enableContinuousMeasurementMode();
-    int getYawAngle();
+    float getYawAngle();
     bool getIsReady() const { return is_ready; }
 
 private:

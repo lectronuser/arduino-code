@@ -1,5 +1,5 @@
-#ifndef __EXTERNAL_IO_HPP__ 
-#define __EXTERNAL_IO_HPP__
+#ifndef EXTERNAL_IO_HPP 
+#define EXTERNAL_IO_HPP
 
 #include "stand_type.hpp"
 

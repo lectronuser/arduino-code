@@ -11,111 +11,96 @@ void GPS::update()
     {
         if (gps.location.isUpdated())
         {
-            data.longitude = gps.location.lng();
-            data.latitude = gps.location.lat();
-            data.fix_age = gps.location.age();
-            is_ready.location = true;
+            position.longitude = gps.location.lng();
+            position.latitude = gps.location.lat();
+            position.fix_age_ms = static_cast<uint16_t>(gps.location.age());
+            position_status.location = true;
         }
     }
 
     if (gps.altitude.isUpdated())
     {
-        data.altitude = gps.altitude.meters();
-        is_ready.altitude = true;
+        position.altitude_m = gps.altitude.meters();
+        position_status.altitude = true;
     }
 
     if (gps.satellites.isUpdated())
     {
-        data.satellites = gps.satellites.value();
-        is_ready.sats = true;
+        position.satellite_count = static_cast<int16_t>(gps.satellites.value());
     }
 
     if (gps.hdop.isUpdated())
     {
-        data.hdop = gps.hdop.hdop();
-        is_ready.htop = true;
+        position.hdop = gps.hdop.hdop();
     }
 
     if (gps.course.isUpdated())
     {
-        data.course = gps.course.deg();
-        is_ready.course = true;
+        position.course_deg = gps.course.deg();
     }
 
     if (gps.date.isUpdated())
     {
-        data.date.year = gps.date.year();
-        data.date.month = gps.date.month();
-        data.date.day = gps.date.day();
-        is_ready.date = true;
+        timestamp.year = gps.date.year();
+        timestamp.month = gps.date.month();
+        timestamp.day = gps.date.day();
+        timestamp_status.date = true;
     }
 
     if (gps.time.isUpdated())
     {
-        data.date.hour = gps.time.hour();
-        data.date.minute = gps.time.minute();
-        data.date.second = gps.time.second();
-        is_ready.time = true;
+        timestamp.hour = gps.time.hour();
+        timestamp.minute = gps.time.minute();
+        timestamp.second = gps.time.second();
+        timestamp_status.time = true;
     }
 }
 
 void GPS::display() const
 {
-    Serial.println(F("===== GPS DATA ====="));
+    Serial.println(F("===== GPS position ====="));
 
-    if (is_ready.location)
+    if (position_status.location)
     {
         Serial.print(F("Fix Age (ms): "));
-        Serial.println(data.fix_age);
+        Serial.println(position.fix_age_ms);
 
         Serial.print(F("Latitude: "));
-        Serial.println(data.latitude, 6);
+        Serial.println(position.latitude, 7);
 
         Serial.print(F("Longitude: "));
-        Serial.println(data.longitude, 6);
+        Serial.println(position.longitude, 7);
     }
 
-    if (is_ready.altitude)
+    if (position_status.altitude)
     {
         Serial.print(F("Altitude (m): "));
-        Serial.println(data.altitude, 2);
-    }
-
-    if (is_ready.htop)
-    {
+        Serial.println(position.altitude_m, 2);
         Serial.print(F("HDOP: "));
-        Serial.println(data.hdop);
-    }
-
-    if (is_ready.course)
-    {
+        Serial.println(position.hdop);
         Serial.print(F("Course (degrees): "));
         Serial.println(gps.course.deg());
-    }
-
-    if (is_ready.sats)
-    {
         Serial.print(F("Satellites: "));
-        Serial.println(data.satellites);
+        Serial.println(position.satellite_count);
     }
 
-    if (is_ready.date && is_ready.time)
+    if (timestamp_status.date && timestamp_status.time)
     {
         Serial.println();
-        Serial.print(data.date.day);
+        Serial.print(timestamp.day);
         Serial.print(F("."));
-        Serial.print(data.date.month);
+        Serial.print(timestamp.month);
         Serial.print(F("."));
-        Serial.print(data.date.year);
+        Serial.print(timestamp.year);
 
         Serial.print(F(" "));
-        Serial.print(data.date.hour);
+        Serial.print(timestamp.hour);
 
         Serial.print(F(":"));
-        Serial.print(data.date.minute);
+        Serial.print(timestamp.minute);
 
         Serial.print(F(":"));
-        Serial.println(data.date.second);
+        Serial.println(timestamp.second);
     }
 
     Serial.println(F("====================="));

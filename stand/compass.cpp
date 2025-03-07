@@ -130,7 +130,7 @@ void Compass::enableContinuousMeasurementMode()
     writeRegister(Register::CNTL2, 0x01);
 }
 
-int Compass::getYawAngle()
+float Compass::getYawAngle()
 {
     int16_t mx, my, mz;
     writeRegister(CNTL1, MODE_SINGLE_MEASUREMENT);
@@ -146,7 +146,7 @@ int Compass::getYawAngle()
             yaw += 360;
         }
 
-        return static_cast<int>(yaw);
+        return yaw;
     }
     else
     {
