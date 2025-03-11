@@ -7,7 +7,7 @@
 
 #define SYS_ID (1)
 #define COMPONENT_ID (200)
-// #define TEST
+//#define TEST
 
 Compass compass;
 RGB_IS31fl3195 rgb;
