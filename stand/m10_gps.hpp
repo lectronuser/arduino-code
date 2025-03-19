@@ -15,7 +15,7 @@ struct GpsTimestamp
 
 struct GpsPosition
 {
-    uint16_t fix_age_ms;  // Fix bilgisinin yaşı (ms cinsinden)
+    uint16_t fix_age;     // Fix (ms cinsinden)
     double longitude;     // Boylam (derece)
     double latitude;      // Enlem (derece)
     double altitude_m;    // Yükseklik (metre)

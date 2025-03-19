@@ -135,8 +135,6 @@ float Compass::getYawAngle()
     int16_t mx, my, mz;
     writeRegister(CNTL1, MODE_SINGLE_MEASUREMENT);
 
-    delay(20);
-
     if (readMagnetometer(mx, my, mz))
     {
         float yaw = atan2((float)my, (float)mx) * 180.0 / PI;

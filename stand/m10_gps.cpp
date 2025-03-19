@@ -13,7 +13,7 @@ void GPS::update()
         {
             position.longitude = gps.location.lng();
             position.latitude = gps.location.lat();
-            position.fix_age_ms = static_cast<uint16_t>(gps.location.age());
+            position.fix_age = static_cast<uint16_t>(gps.location.age());
             position_status.location = true;
         }
     }
@@ -62,8 +62,8 @@ void GPS::display() const
 
     if (position_status.location)
     {
-        Serial.print(F("Fix Age (ms): "));
-        Serial.println(position.fix_age_ms);
+        Serial.print(F("Fix Age: "));
+        Serial.println(position.fix_age);
 
         Serial.print(F("Latitude: "));
         Serial.println(position.latitude, 7);
