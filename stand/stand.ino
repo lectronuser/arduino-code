@@ -9,9 +9,9 @@
 
 #define SYS_ID (2)
 #define COMPONENT_ID (200)
-#define HEARTBEAT_MS (10000)
+#define HEARTBEAT_MS (50000)
 #define GPS_MS (1000)
-#define ATTITUDE_MS (100)
+#define ATTITUDE_MS (200)
 //#define TEST
 
 Compass compass;
