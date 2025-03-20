@@ -12,7 +12,9 @@
 #define HEARTBEAT_MS (50000)
 #define GPS_MS (1000)
 #define ATTITUDE_MS (200)
-//#define TEST
+
+#define TEST_COMPASS_ENABLE 0
+#define TEST_GPS_ENABLE 1
 
 Compass compass;
 RGB_IS31fl3195 rgb;
@@ -36,7 +38,15 @@ void setup()
 
 void loop()
 {
-#ifndef TEST
+#if TEST_COMPASS_ENABLE
+  is_compass_ready = true;
+#else
+  is_compass_ready = compass.getIsReady();
+#endif
+
+#if TEST_GPS_ENABLE
+  is_gps_ready = true;
+#else
   while (Serial2.available() > 0)
   {
     m10.load(Serial2.read());
@@ -44,10 +54,7 @@ void loop()
 
   m10.update();
   is_gps_ready = m10.getIsReady();
-  is_compass_ready = compass.getIsReady();
-#else
-  is_gps_ready = true;
-  is_compass_ready = true;
+  
 #endif
 
   blink(is_gps_ready ? led_control_s::COLOR_GREEN : led_control_s::COLOR_RED);
@@ -60,7 +67,7 @@ void loop()
   if (is_compass_ready && millis() - last_attitude_time > ATTITUDE_MS)
   {
     last_attitude_time = millis();
-#ifdef TEST
+#if TEST_COMPASS_ENABLE
     sendMAVLinkAttitudeMessage(0, 0, 0);
 #else
     sendMAVLinkAttitudeMessage(0, 0, compass.getYawAngle());
@@ -98,7 +105,7 @@ void sendMAVLinkGPSMessage()
   uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
   mavlink_hil_gps_t hil_gps;
 
-#ifdef TEST
+#ifdef TEST_GPS_ENABLE
   m10.position.fix_age = 1;
   m10.position.latitude = 40.0738894;
   m10.position.longitude = 33.0015557;
