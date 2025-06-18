@@ -1,1 +1,7 @@
-libraries
+.vscode
+build
+install
+log
+*.o
+*.ko
+*.out
