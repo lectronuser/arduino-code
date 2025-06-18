@@ -1,0 +1,44 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/omer/gz_ros_ws/install/include/**",
+        "/home/omer/workspace/install/vision_msgs_rviz_plugins/include/**",
+        "/home/omer/workspace/install/vision_msgs/include/**",
+        "/home/omer/workspace/install/px4_odom/include/**",
+        "/home/omer/workspace/install/px4_msgs/include/**",
+        "/home/omer/workspace/install/ov_msckf/include/**",
+        "/home/omer/workspace/install/ov_init/include/**",
+        "/home/omer/workspace/install/ov_eval/include/**",
+        "/home/omer/workspace/install/ov_core/include/**",
+        "/home/omer/workspace/install/octomap_server/include/**",
+        "/home/omer/workspace/install/octomap_ros/include/**",
+        "/home/omer/workspace/install/octomap_msgs/include/**",
+        "/home/omer/workspace/install/gps_tools/include/**",
+        "/home/omer/workspace/install/gps_msgs/include/**",
+        "/home/omer/workspace/install/actuator_msgs/include/**",
+        "/opt/ros/humble/include/**",
+        "/home/omer/workspace/src/LOJISTIK-IHA/Tools/simulation/modules/actuator_control/include/**",
+        "/home/omer/workspace/src/LOJISTIK-IHA/mavlink_comm/include/**",
+        "/home/omer/workspace/src/allan_variance_ros2/src/allan_variance_ros2/include/**",
+        "/home/omer/workspace/src/octomap/octomap_mapping/octomap_server/include/**",
+        "/home/omer/workspace/src/octomap/octomap_msgs/include/**",
+        "/home/omer/workspace/src/octomap/octomap_ros/include/**",
+        "/home/omer/workspace/src/octomap/octomap_server2/include/**",
+        "/home/omer/workspace/src/px4/px4_odom/include/**",
+        "/home/omer/workspace/src/px4/px4_ros_com/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}
