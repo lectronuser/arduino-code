@@ -10,6 +10,8 @@ ITG3205 gyro;
 
 // Timing variables
 unsigned long lastSampleTime = 0;
+static constexpr uint8_t HEADER = 0x70;     /**< Uart paketinin ilk byte değeri*/
+static constexpr uint8_t FOOTER = 0x80;     /**< Uart paketinin son byte değeri*/
 
 // Data structures
 struct SensorData {
@@ -26,13 +28,13 @@ void setup() {
   Serial.begin(115200);
   while (!Serial);
   
-  accelerometer.init(ADXL345Range::ADXL345_RANGE_4G, ADXL345DataRate::ADXL345_DATARATE_200HZ);
-  gyro.init(ITG3205DLPFConfig::DLPF_42HZ, ITG3205Frequency::FREQ_200HZ);
+  accelerometer.init(ADXL345Range::ADXL345_RANGE_4G, ADXL345DataRate::ADXL345_DATARATE_400HZ);
+  gyro.init(ITG3205DLPFConfig::DLPF_42HZ, ITG3205Frequency::FREQ_400HZ);
 
   // Serial.println("Calibrating Sensors...");
-  accelerometer.calibrate();
-  gyro.calibrate();
-  
+  //accelerometer.calibrate();
+  //gyro.calibrate();
+
   accelerometer.enableReadingInterrupt();
   pinMode(2, INPUT);
   attachInterrupt(digitalPinToInterrupt(2), accelInterrupt, RISING);
@@ -96,6 +98,8 @@ void sendData()
   //Serial.println(currentData.temp, 2);
 #else
     currentData.timestamp = micros();
+    Serial.write(HEADER);
     Serial.write((const uint8_t *) &currentData, sizeof(SensorData));
+    Serial.write(FOOTER);
 #endif
 }
